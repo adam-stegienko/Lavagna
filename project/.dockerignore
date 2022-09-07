@@ -1,0 +1,5 @@
+*.gitginore
+*.gitmodules
+*.md
+*.txt
+init.sh
