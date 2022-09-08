@@ -1,11 +1,11 @@
 #!/bin/bash
 
-BASEDIR=$(dirname $0)
+# BASEDIR=$(dirname $0)
 
 java \
 	-Ddatasource.dialect=HSQLDB \
 	-Ddatasource.url=jdbc:hsqldb:mem:lavagna \
-	-Ddatasource.username=sa \
-	-Ddatasource.password= \
+	-Ddatasource.username=adam \
+	-Ddatasource.password=password \
 	-Dspring.profiles.active=dev \
-	-jar $BASEDIR/../lavagna/lavagna-jetty-console.war
+	-jar /usr/src/target/lavagna-jetty-console.war
