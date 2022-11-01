@@ -1,0 +1,54 @@
+version: '3.7'
+
+services:
+  reverse_nginx:
+    container_name: reverse_nginx
+    hostname: reverse_nginx
+    image: nginx:1.23-alpine
+    networks:
+      - reverse
+    ports:
+      - "80:80"
+    volumes:
+      - ./reverse_proxy/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./reverse_proxy/static:/usr/share/nginx/html
+    restart: always
+  lavagna_app:
+    image: lavagna_image:1.0
+    container_name: lavagna_app
+    networks:
+      - reverse
+      - mysql_net
+    restart: always
+    entrypoint: java -Xms64m -Xmx128m -Ddatasource.dialect=MYSQL -Ddatasource.url=jdbc:mysql://lavagna_database:3306/lavagna?useUnicode=true&characterEncoding=utf-8&useSSL=false -Ddatasource.username=${MYSQL_ROOT_USER} -Ddatasource.password=${MYSQL_ROOT_PASSWORD} -Dspring.profiles.active=prod -jar /usr/src/target/lavagna-jetty-console.war
+    depends_on:
+      lavagna_database:
+        condition: service_healthy
+    links:
+      - lavagna_database
+  lavagna_database:
+    image: mysql:5.7
+    container_name: lavagna_database
+    volumes:
+      - lavagna_data:/var/lib/mysql
+    networks:
+      - mysql_net
+    restart: always
+    depends_on:
+      - reverse_nginx
+    healthcheck:
+      test: curl --fail http://localhost:3306
+      interval: 3s
+      retries: 20
+      start_period: 5s
+      timeout: 5s
+
+volumes:
+  lavagna_data:
+    driver: local
+
+networks:
+  mysql_net:
+    driver: bridge
+  reverse:
+    driver: bridge

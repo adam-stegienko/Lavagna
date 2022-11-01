@@ -1,0 +1,14 @@
+.env
+.eslintrc
+.gitignore
+.gitmodules
+CHANGELOG.md
+docker-compose.yaml
+Dockerfile
+init.sh
+package-lock.json
+package.json
+README_EXECUTABLE_WAR.txt
+README.md
+ROADMAP.md
+reverse_proxy/
