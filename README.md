@@ -1,6 +1,12 @@
 Lavagna
 ======
 
+#### NOTE FROM ADAM
+
+In order to start the dockerized version of the app, make sure you have docker installed on your machine, add the ".env" file with mysql database environmental variables of your choice and run the "init.sh" script. Then you can access the Lavagna application via address http://localhost
+
+======
+
 [![Java CI with Maven](https://github.com/digitalfondue/lavagna/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/digitalfondue/lavagna/actions?query=workflow%3A%22Java+CI+with+Maven%22)
 [![Maven Central](https://img.shields.io/maven-central/v/io.lavagna/lavagna.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22lavagna%22)
 [![Github All Releases](https://img.shields.io/github/downloads/digitalfondue/lavagna/total.svg)](https://github.com/digitalfondue/lavagna/releases)
